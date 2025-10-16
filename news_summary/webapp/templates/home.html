@@ -1,0 +1,178 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خلاصه و هایلایت اخبار فارسی</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- connect to style.css -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="{% static 'scripts.js' %}"></script>
+
+</head>
+<body>
+<div class="row choose-agency">
+    
+    <div class="row label">
+            <p class="text-center">خبرگزاری مورد نظر خود را انتخاب کنید</p>
+    </div>
+    
+    <div class="row buttons">
+        <div class="col irna">
+            <button class="btn" onclick="select_agency('irna')">
+                <img class="img-fluid" src="{% static 'Img/irna.jpg' %}" alt="خبرگزاری ایرنا">
+            </button>
+        </div>
+        <div class="col isna">
+            <button class="btn" onclick="select_agency('isna')">
+                <img class="img-fluid" src="{% static 'Img/isna.jpg' %}" alt="خبرگزاری ایسنا">
+            </button>
+        </div>
+        <div class="col mehr">
+            <button class="btn" onclick="select_agency('mehr')">
+                <img class="img-fluid" src="{% static 'Img/mehr.jpg' %}" alt="خبرگزاری مهر">
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="row choose-news" style="display: none;">
+
+    <div class="col enter-url">
+        <div class="row">
+            <p class="text-center">جستجو از طریق لینک خبر</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="input-group">
+                <button class="btn search-url" onclick="get_article_by_url(document.getElementById('newsUrlInput').value)">
+                    <i class="fas fa-search"></i>
+                </button>
+                <input type="text" id="newsUrlInput" class="form-control" placeholder="لینک خبر را وارد کنید">
+            </div>
+        </div>
+    </div>
+
+    <div class="col select-title">
+
+        <div class="row">
+            <p class="text-center">جستجو از طریق عنوان خبر</p>
+        </div>
+     
+        <div class="row dropdown">
+            
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-flip="false">
+                عنوان خود را انتخاب کنید
+            </button>
+            
+            <ul id="dropdownMenu" class="dropdown-menu dropdown-menu-end">
+                    <!-- Dropdown items will be dynamically added here -->
+            </ul>
+        
+        </div>
+        
+    </div>
+</div>
+
+<div class="row show-outputs" >
+
+    <div class="row news-original-article-container" style="display: none;">
+        <div class="row container">
+            <div class="label"><p>متن اصلی خبر</p></div>
+        </div>
+        
+        <div class="row article" id="original-article"></div>
+
+    </div>
+    
+    <div class="row news-highlighted-article-container" style="display: none;">
+
+        <div class="row container">
+            <div class="col-8 btn-group-container">
+            
+                <div class="radio-buttons btn-group" role="group" aria-label="Basic radio toggle button group">
+                    
+                    <input type="radio" class="btn-check" name="extractive" id="frequency-based" onclick="showArticle('frequency-based-article')">
+                    <label class="btn" for="frequency-based">Frequency Based</label>
+                    
+                    <input type="radio" class="btn-check" name="extractive" id="luhn" onclick="showArticle('luhn-article')">
+                    <label class="btn" for="luhn">Luhn</label>
+                    
+                    <input type="radio" class="btn-check" name="extractive" id="text-rank" onclick="showArticle('text-rank-article')">
+                    <label class="btn" for="text-rank">Text Rank</label>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="col-4 label"><p>متن هایلایت شده خبر</p></div>
+        </div>
+        
+        <div class="row article">
+            <p class="extractive-articles" style="display: none;" id="frequency-based-article"></p>
+            <p class="extractive-articles" style="display: none;" id="luhn-article"></p>
+            <p class="extractive-articles" style="display: none;" id="text-rank-article"></p>
+        </div>
+
+    </div>
+    
+    <div class="row news-summary-article-container" style="display: none;">
+        
+        <div class="row container">
+            <div class="col-8 btn-group-container">
+                
+                <div class="radio-buttons btn-group" role="group" aria-label="Basic radio toggle button group">
+                    
+                    <input type="radio" class="btn-check" name="abstractive" id="p-b2b" onclick="showArticle('p-b2b-article')">
+                    <label class="btn" for="p-b2b">pretrained b2b shared</label>
+                    
+                    <input type="radio" class="btn-check" name="abstractive" id="f-b2b" onclick="showArticle('f-b2b-article')">
+                    <label class="btn" for="f-b2b">fine-tuned b2b shared</label>
+                    
+                    <input type="radio" class="btn-check" name="abstractive" id="p-mt5" onclick="showArticle('p-mt5-article')">
+                    <label class="btn" for="p-mt5">pretrained mt5-small</label>
+                    
+                    <input type="radio" class="btn-check" name="abstractive" id="f-mt5" onclick="showArticle('f-mt5-article')">
+                    <label class="btn" for="f-mt5">fine-tuned mt5-small</label>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="col-4 label"><p>خلاصه خبر</p></div>
+        </div>
+
+        <div class="row article">
+            <p class="abstractive-articles" style="display: none;" id="p-b2b-article"></p>
+            <p class="abstractive-articles" style="display: none;" id="f-b2b-article"></p>
+            <p class="abstractive-articles" style="display: none;" id="p-mt5-article"></p>
+            <p class="abstractive-articles" style="display: none;" id="f-mt5-article"></p>
+        </div>
+
+    </div>
+    
+    
+    
+    <button class="btn" id="highlight-button" style="display: none;" onclick="get_highlighted_article_text()">highlight</button>
+
+</div>
+
+
+<!-- error display area -->
+<div class="text-center" id="error" style="display: none; margin-top: 20px;"></div>
+
+<!-- Loading indicator HTML -->
+<div id="loading" style="display: none;">
+    <img style="height: 100px; display:grid;align-items: center;justify-content: center;margin: auto;" src="{% static 'circular_loading.gif' %}" alt="Loading...">
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script></body>
+</html>

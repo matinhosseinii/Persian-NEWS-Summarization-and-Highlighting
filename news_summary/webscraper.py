@@ -10,7 +10,7 @@ chrome_options.add_argument("--headless=new")  # Set headless mode
 
 def get_isna_titles():
     website = 'https://www.isna.ir/archive'
-    driver = webdriver.Chrome(service=Service(path), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(path))
     driver.maximize_window()
     driver.get(website)
     choose_news_class_button = driver.find_elements(By.XPATH, '//span[@class="select2-selection__rendered"]')[4]
@@ -33,7 +33,7 @@ def get_isna_titles():
 
 def get_irna_titles():
     website = 'https://www.irna.ir/archive'
-    driver = webdriver.Chrome(service=Service(path), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(path))
     driver.maximize_window()
     driver.get(website)
     choose_news_class_button = driver.find_elements(By.XPATH, '//span[@class="select2-selection__rendered"]')[4]
@@ -56,7 +56,7 @@ def get_irna_titles():
 
 def get_mehr_titles():
     website = 'https://www.mehrnews.com/archive'
-    driver = webdriver.Chrome(service=Service(path), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(path))
     driver.maximize_window()
     driver.get(website)
     choose_news_class_button = driver.find_elements(By.XPATH, '//span[@class="select2-selection__rendered"]')[4]

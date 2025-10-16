@@ -77,7 +77,7 @@ def calculate_sentences_score(text, important_words, distance):
 
     return scores
 
-def get_best_sentences(text, number_of_important_words, distance, percentage):
+def get_best_sentences(text, number_of_important_words, distance, percentage=0.25):
     sentences = sent_tokenize(text)
     scores = calculate_sentences_score(text, get_top_n_words(text, number_of_important_words), distance)
     best_scores = heapq.nlargest(math.ceil(len(sentences) * percentage), scores)

@@ -1,0 +1,10 @@
+env/
+news_summary/Summary_and_Highlight/Summary/HooshvareLab pn-summary-b2b-shared/*
+news_summary/Summary_and_Highlight/Summary/HooshvareLab pn-summary-mt5-small/*
+news_summary/Summary_and_Highlight/Summary/matinhosseini finetuned-b2b-with-xlsum/*
+news_summary/Summary_and_Highlight/Summary/matinhosseini finetuned-mt5small-with-xlsum/*
+
+!news_summary/Summary_and_Highlight/Summary/HooshvareLab pn-summary-b2b-shared/.gitkeep
+!news_summary/Summary_and_Highlight/Summary/HooshvareLab pn-summary-mt5-small/.gitkeep
+!news_summary/Summary_and_Highlight/Summary/matinhosseini finetuned-b2b-with-xlsum/.gitkeep
+!news_summary/Summary_and_Highlight/Summary/matinhosseini finetuned-mt5small-with-xlsum/.gitkeep
